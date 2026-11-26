@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>PESONA TV - Billing &amp; Field Ops</title>
+    
+    <!-- Meta Mobile App & PWA Capabilities -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PESONA TV">
+    <meta name="theme-color" content="#28323e">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #28323e;
+            color: #ffffff;
+            position: fixed;
+            inset: 0;
+        }
+
+        /* Frame Pembungkus Fullscreen */
+        #appFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #28323e;
+        }
+
+        /* Splash Screen & Loader Branded PESONA TV */
+        #splashLoader {
+            position: fixed;
+            inset: 0;
+            background: #28323e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #splashLoader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+            border-radius: 9999px;
+            background: #10b981;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .brand-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .spinner-ring {
+            width: 38px;
+            height: 38px;
+            border: 3.5px solid rgba(255, 255, 255, 0.12);
+            border-top: 3.5px solid #10b981;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+        }
+
+        .loader-status {
+            font-size: 13px;
+            color: #cbd5e1;
+            margin-top: 16px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Splash Screen Loader Elegan -->
+    <div id="splashLoader">
+        <div class="brand-box">
+            <div class="brand-logo">P</div>
+            <div class="brand-text">
+                <h1>PESONA TV</h1>
+                <p>Billing &amp; Field Ops</p>
+            </div>
+        </div>
+        <div class="spinner-ring"></div>
+        <div class="loader-status">Menghubungkan ke sistem...</div>
+    </div>
+
+    <!-- Iframe Pembungkus Web App Google Apps Script -->
+    <iframe id="appFrame"
+        src="https://script.google.com/macros/s/AKfycbyPPJWeM7PxcnoBfPM3m-bo8XHL0kIh9Vqj45jakoZK8NHjrmhzeAVK4kfTjqO-cCfm/exec"
+        allow="geolocation; camera; microphone; clipboard-read; clipboard-write; fullscreen"
+        onload="onFrameReady()">
+    </iframe>
+
+    <script>
+        var isLoaded = false;
+
+        function onFrameReady() {
+            if (isLoaded) return;
+            isLoaded = true;
+            var loader = document.getElementById('splashLoader');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(function () {
+                    loader.style.display = 'none';
+                }, 450);
+            }
+        }
+
+        // Timeout pengaman: jika koneksi internet lambat, sembunyikan loader otomatis setelah 6 detik
+        setTimeout(function () {
+            onFrameReady();
+        }, 6000);
+    </script>
+</body>
+
+</html>
